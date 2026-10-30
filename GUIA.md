@@ -192,17 +192,23 @@ data/      → dados de exemplo (apagar no passo 14)
 - `condição && <Algo />` mostra se for verdadeiro.
 - `condição ? <A /> : <B />` escolhe entre dois.
 - Elemento escondido some do HTML. Elemento `disabled` continua lá, só não clica.
+- `.length` é uma propriedade (sem parênteses). Array vazio: `lista.length === 0`.
 
-**Faça**
-1. Em `EstadoVazio`, troque os textos fixos pelas props `titulo` e `mensagem`.
-2. Em `MateriaForm`, mostre o `<p className="form-error">` só se `erro` tiver texto, usando o texto da prop.
-3. Em `MateriaList`, se `materias` estiver vazio, mostre `<EstadoVazio />` no lugar do `<ul>`.
-4. Em `SessaoList`, faça o mesmo no lugar da tabela.
-5. Em `Cronometro`, mostre o botão "Iniciar" **ou** "Pausar" conforme `rodando`.
-6. Em `Cronometro`, ponha `disabled` no "Finalizar" quando `podeFinalizar` for falso.
-7. Teste trocando os dados de exemplo (array vazio, `erro` preenchido, `rodando` ligado).
+**Faça** (cada item diz o arquivo, a condição e o que mostrar)
 
-**Erro comum:** `lista.length && ...` mostra um `0` na tela se a lista for vazia.
+| # | Arquivo | Condição | Resultado |
+|---|---|---|---|
+| 1 | `EstadoVazio` | — | usa `{titulo}` e `{mensagem}` no lugar dos textos fixos |
+| 2 | `MateriaForm` | `erro` tem texto | mostra `<p className="form-error">{erro}</p>`; senão, some |
+| 3 | `MateriaList` | `materias` vazio | mostra `<EstadoVazio titulo=".." mensagem=".." />` no lugar do `<ul>` |
+| 4 | `SessaoList` | `sessoes` vazio | mostra `<EstadoVazio titulo=".." mensagem=".." />` no lugar da `<table>` |
+| 5 | `Cronometro` | `rodando` | `true` → só "Pausar"; `false` → só "Iniciar" |
+| 6 | `Cronometro` | `podeFinalizar` falso | "Finalizar" fica `disabled` (sempre visível) |
+| 7 | páginas | — | teste (abaixo) |
+
+**Teste (item 7):** passe valores de mentira direto na página e desfaça depois: `materias={[]}`, `sessoes={[]}`, `erro="Teste"` / `erro=""`, `rodando={true}`.
+
+**Erro comum:** `lista.length && ...` mostra um `0` na tela se a lista for vazia. Use `lista.length === 0 ? ... : ...`.
 **Leia:** https://react.dev/learn/conditional-rendering
 **Pronto quando:** array vazio mostra a mensagem, erro vazio some, botões mudam conforme as props.
 

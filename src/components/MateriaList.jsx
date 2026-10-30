@@ -1,3 +1,4 @@
+import EstadoVazio from './EstadoVazio'
 import MateriaItem from './MateriaItem'
 
 /**
@@ -10,15 +11,16 @@ import MateriaItem from './MateriaItem'
 function MateriaList({ materias, onRemover }) {
   return (
     <section className="card">
-      {/* TODO [passo 4 do GUIA] mostrar a quantidade real de matérias no lugar do 3 */}
       <h2 className="card__title">Matérias cadastradas ({materias.length})</h2>
-      {/* TODO [passo 5 do GUIA] quando não houver matérias, mostrar <EstadoVazio /> no lugar da lista */}
-      <ul className="materia-list">
-        {/* TODO [passo 4 do GUIA] trocar os 3 itens fixos por um map() sobre materias, com key */}
-        {materias.map(materia => (
-          <MateriaItem key={materia.id} materia={materia} />
-        ))}
-      </ul>
+      {materias.length === 0 ? (
+        <EstadoVazio titulo="Nenhuma matéria ainda" mensagem="Cadastre sua primeira matéria acima." />
+      ) : (
+        <ul className="materia-list">
+          {materias.map(materia => (
+            <MateriaItem key={materia.id} materia={materia} />
+          ))}
+        </ul>
+      )}
     </section>
   )
 }

@@ -19,10 +19,11 @@ function MateriaForm({ valor, erro, onChange, onSubmit }) {
           Adicionar
         </button>
       </div>
-      {/* TODO [passo 5 do GUIA] mostrar esta mensagem só quando existir erro; usar o texto da prop erro */}
-      <p className="form-error" role="alert">
-        O nome deve ter pelo menos 2 caracteres.
-      </p>
+      {erro && (
+        <p className="form-error" role="alert">
+          {erro}
+        </p>
+      )}
     </form>
   )
 }

@@ -10,9 +10,7 @@ function MateriasPage() {
 
   return (
     <>
-      {/* TODO [passo 2 do GUIA] este cabeçalho se repete nas 3 páginas: extraia para um componente PageHeader com props titulo e descricao */}
       <PageHeader titulo='Matérias' descricao='Cadastre as matérias que você estuda.' />
-
 
       {/* TODO [passo 3 do GUIA] passar as props (valor, erro, onChange, onSubmit) para o formulário */}
       <MateriaForm />

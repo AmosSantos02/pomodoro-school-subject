@@ -17,15 +17,17 @@ function Cronometro({ segundos, rodando, podeFinalizar, onIniciar, onPausar, onF
         00:12:34
       </div>
       <div className="cronometro__acoes">
-        {/* TODO [passo 5 do GUIA] mostrar "Iniciar" ou "Pausar" conforme rodando (só um dos dois aparece) */}
         {/* TODO [passo 9 do GUIA] ligar os onClick e desabilitar o que não faz sentido (disabled) */}
-        <button type="button" className="btn btn--primary">
-          Iniciar
-        </button>
-        <button type="button" className="btn btn--secondary">
-          Pausar
-        </button>
-        <button type="button" className="btn btn--ghost-danger">
+        {rodando ? (
+          <button type="button" className="btn btn--secondary">
+            Pausar
+          </button>
+        ) : (
+          <button type="button" className="btn btn--primary">
+            Iniciar
+          </button>
+        )}
+        <button type="button" className="btn btn--ghost-danger" disabled={!podeFinalizar}>
           Finalizar
         </button>
       </div>
