@@ -23,11 +23,9 @@ function SessaoList({ sessoes, materias }) {
           </thead>
           <tbody>
             {/* TODO [passo 11 do GUIA] trocar os 3 itens fixos por um map() sobre sessoes, com key; passe o nomeMateria usando buscarNomeDaMateria() */}
-            <SessaoItem sessao={sessoes[0]} nomeMateria='Matemática'/>
-            <SessaoItem sessao={sessoes[1]} nomeMateria='Matemática'/>
-            <SessaoItem sessao={sessoes[2]} nomeMateria='Matemática'/>
-            <SessaoItem sessao={}/>
-            {sessoes.map(sessao => {<SessaoItem key={sessao.id} sessao={sessao.} />})}
+            {sessoes.map(sessao => (
+              <SessaoItem key={sessao.id} sessao={sessao} nomeMateria='Matemática' />
+            ))}
           </tbody>
         </table>
       </div>
