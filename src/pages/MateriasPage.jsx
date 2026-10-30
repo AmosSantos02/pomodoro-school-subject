@@ -1,6 +1,7 @@
 import MateriaForm from '../components/MateriaForm'
 import MateriaList from '../components/MateriaList'
 import PageHeader from '../components/PageHeader'
+import { MATERIAS_EXEMPLO } from '../data/dadosExemplo'
 
 function MateriasPage() {
   // TODO [passo 7 do GUIA] criar o state das matérias (iniciando com o que está salvo no localStorage)
@@ -10,14 +11,14 @@ function MateriasPage() {
   return (
     <>
       {/* TODO [passo 2 do GUIA] este cabeçalho se repete nas 3 páginas: extraia para um componente PageHeader com props titulo e descricao */}
-      <PageHeader />
+      <PageHeader titulo='Matérias' descricao='Cadastre as matérias que você estuda.' />
 
 
       {/* TODO [passo 3 do GUIA] passar as props (valor, erro, onChange, onSubmit) para o formulário */}
       <MateriaForm />
 
       {/* TODO [passo 3 do GUIA] passar materias e onRemover para a lista (primeiro com MATERIAS_EXEMPLO, depois com o state) */}
-      <MateriaList />
+      <MateriaList materias={MATERIAS_EXEMPLO} />
     </>
   )
 }

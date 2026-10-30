@@ -15,9 +15,9 @@ function MateriaList({ materias, onRemover }) {
       {/* TODO [passo 5 do GUIA] quando não houver matérias, mostrar <EstadoVazio /> no lugar da lista */}
       <ul className="materia-list">
         {/* TODO [passo 4 do GUIA] trocar os 3 itens fixos por um map() sobre materias, com key */}
-        <MateriaItem />
-        <MateriaItem />
-        <MateriaItem />
+        <MateriaItem materia={materias[0]}/>
+        <MateriaItem materia={materias[1]}/>
+        <MateriaItem materia={materias[2]}/>
       </ul>
     </section>
   )

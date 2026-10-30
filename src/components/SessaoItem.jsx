@@ -9,9 +9,9 @@ function SessaoItem({ sessao, nomeMateria }) {
   return (
     <tr>
       {/* TODO [passo 11 do GUIA] data com formatarData(sessao.data), matéria com nomeMateria, duração com formatarSegundos(sessao.duracaoSegundos) */}
-      <td>28/10/2026 14:30</td>
-      <td>Matemática</td>
-      <td className="numero">00:52:05</td>
+      <td>{sessao.data}</td>
+      <td>{nomeMateria}</td>
+      <td className="numero">{sessao.duracaoSegundos}</td>
     </tr>
   )
 }

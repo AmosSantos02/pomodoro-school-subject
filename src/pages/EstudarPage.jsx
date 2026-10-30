@@ -12,7 +12,7 @@ function EstudarPage() {
   return (
     <>
       {/* TODO [passo 2 do GUIA] trocar por <PageHeader /> */}
-      <PageHeader />
+      <PageHeader titulo='Estudar' descricao='Escolha uma matéria e inicie o cronônmetro' />
 
       {/* TODO [passo 12 do GUIA] passar frase, carregando e erro */}
       <FraseMotivacional />
