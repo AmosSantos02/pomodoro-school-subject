@@ -2,6 +2,7 @@ import SeletorMateria from '../components/SeletorMateria'
 import Cronometro from '../components/Cronometro'
 import FraseMotivacional from '../components/FraseMotivacional'
 import PageHeader from '../components/PageHeader'
+import { MATERIAS_EXEMPLO } from '../data/dadosExemplo'
 
 function EstudarPage() {
   // TODO [passo 9 do GUIA] criar os states: matéria escolhida, segundos decorridos e se está rodando
@@ -12,14 +13,14 @@ function EstudarPage() {
   return (
     <>
       {/* TODO [passo 2 do GUIA] trocar por <PageHeader /> */}
-      <PageHeader titulo='Estudar' descricao='Escolha uma matéria e inicie o cronônmetro' />
+      <PageHeader titulo='Estudar' descricao='Escolha uma matéria e inicie o cronômetro' />
 
       {/* TODO [passo 12 do GUIA] passar frase, carregando e erro */}
       <FraseMotivacional />
 
       <section className="card estudar">
         {/* TODO [passo 3 do GUIA] passar materias, valor, onChange e desabilitado */}
-        <SeletorMateria />
+        <SeletorMateria materias={MATERIAS_EXEMPLO} />
 
         {/* TODO [passo 3 do GUIA] passar segundos, rodando, podeFinalizar e os três handlers */}
         <Cronometro />
