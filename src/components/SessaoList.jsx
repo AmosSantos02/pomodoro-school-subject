@@ -26,6 +26,8 @@ function SessaoList({ sessoes, materias }) {
             <SessaoItem sessao={sessoes[0]} nomeMateria='Matemática'/>
             <SessaoItem sessao={sessoes[1]} nomeMateria='Matemática'/>
             <SessaoItem sessao={sessoes[2]} nomeMateria='Matemática'/>
+            <SessaoItem sessao={}/>
+            {sessoes.map(sessao => {<SessaoItem key={sessao.id} sessao={sessao.} />})}
           </tbody>
         </table>
       </div>

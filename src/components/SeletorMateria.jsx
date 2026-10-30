@@ -17,11 +17,9 @@ function SeletorMateria({ materias, valor, onChange, desabilitado }) {
           Escolha uma matéria
         </option>
         {/* TODO [passo 4 do GUIA] trocar as 3 options fixas por um map() sobre materias, com key */}
-        <option value="m1">Matemática</option>
-        <option value="m2">Português</option>
-        <option value="m3">História</option>
-      </select>
-    </div>
+        {materias.map(materia => (option value = { materia.id } > { materia.nome }</option>) )}
+    </select>
+    </div >
   )
 }
 
