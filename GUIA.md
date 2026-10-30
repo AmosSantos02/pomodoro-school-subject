@@ -151,6 +151,7 @@ data/      → dados de exemplo (apagar no passo 14)
 6. Em `MateriaList`, passe uma matéria para cada um dos 3 `<MateriaItem />` fixos: `materia={materias[0]}`, `materia={materias[1]}`, `materia={materias[2]}`. (Provisório: no passo 4 o `map` substitui isso.)
 7. Em `HistoricoPage`, importe `SESSOES_EXEMPLO` e `MATERIAS_EXEMPLO` e passe `sessoes` e `materias` para `<SessaoList />`.
 8. Em `SessaoList`, passe `sessao={sessoes[0]}`, `[1]`, `[2]` para os 3 `<SessaoItem />` e `nomeMateria="Matemática"` (texto fixo provisório; o nome real vem no passo 11).
+9. Em `EstudarPage`, importe `MATERIAS_EXEMPLO` e passe `materias={MATERIAS_EXEMPLO}` para `<SeletorMateria />` (o passo 4 vai usar essa prop; sem ela a página quebra).
 
 **Erro comum:** passar a função já executada (`onRemover={f()}`). Passe a referência (`onRemover={f}`).
 **Leia:** https://react.dev/learn/passing-props-to-a-component
