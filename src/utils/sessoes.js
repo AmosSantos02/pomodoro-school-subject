@@ -20,5 +20,10 @@ export function calcularTotalPorMateria(sessoes) {
  * @returns {string} o nome, ou um texto alternativo se a matéria foi removida
  */
 export function buscarNomeDaMateria(materias, materiaId) {
-  // TODO [passo 6 do GUIA] procurar na lista (find) e decidir o que devolver quando não encontrar
+  const encontrado = materias.find(m => m.id === materiaId)
+
+  if(encontrado){
+    return encontrado.nome
+  }
+  return 'Matéria removida'
 }
