@@ -1,8 +1,10 @@
-export function PageHeader(titulo, descricao) {
+function PageHeader({ titulo, descricao }) {
+  return (
     <header className="page-header">
-        <h1>{titulo}</h1>
-        <p>{descricao}</p>
+      <h1>{titulo}</h1>
+      <p>{descricao}</p>
     </header>
+  )
 }
 
-export default PageHeader();
+export default PageHeader
