@@ -5,7 +5,11 @@
  * @returns {Object<string, number>} ex.: { m1: 5525, m2: 1800 } (chave = materiaId)
  */
 export function calcularTotalPorMateria(sessoes) {
-  // TODO [passo 6 do GUIA] percorrer as sessões acumulando a duração de cada materiaId (reduce ou for...of)
+  const totais = {}
+  for(const sessao of sessoes){
+    totais[sessao.materiaId] = (totais[sessao.materiaId] ?? 0) + sessao.duracaoSegundos
+  }
+  return totais
 }
 
 /**

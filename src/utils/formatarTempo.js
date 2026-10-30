@@ -1,3 +1,5 @@
+import { data } from "react-router-dom"
+
 /**
  * Converte segundos em "hh:mm:ss" (ex.: 3725 -> "01:02:05").
  *
@@ -5,7 +7,14 @@
  * @returns {string}
  */
 export function formatarSegundos(segundos) {
-  // TODO [passo 6 do GUIA] calcular horas, minutos e segundos restantes; completar com zero à esquerda (padStart)
+  const convHour = Math.floor(segundos / 3600)
+  const convMinutes = Math.floor((segundos % 3600) / 60)
+  const convSeconds = segundos % 60
+
+  const h = String(convHour).padStart(2, '0')
+  const m = String(convMinutes).padStart(2,'0')
+  const s = String(convSeconds).padStart(2,'0')
+  return `${h}:${m}:${s}`
 }
 
 /**
@@ -15,5 +24,6 @@ export function formatarSegundos(segundos) {
  * @returns {string}
  */
 export function formatarData(dataIso) {
-  // TODO [passo 6 do GUIA] criar um Date a partir da string e formatar em pt-BR (toLocaleString)
+  const d = new Date(dataIso)
+  return d.toLocaleString('pt-BR')
 }
