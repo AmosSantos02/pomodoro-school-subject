@@ -1,6 +1,7 @@
 import SeletorMateria from '../components/SeletorMateria'
 import Cronometro from '../components/Cronometro'
 import FraseMotivacional from '../components/FraseMotivacional'
+import PageHeader from '../components/PageHeader'
 
 function EstudarPage() {
   // TODO [passo 9 do GUIA] criar os states: matéria escolhida, segundos decorridos e se está rodando
@@ -11,10 +12,7 @@ function EstudarPage() {
   return (
     <>
       {/* TODO [passo 2 do GUIA] trocar por <PageHeader /> */}
-      <header className="page-header">
-        <h1>Estudar</h1>
-        <p>Escolha uma matéria e inicie o cronômetro.</p>
-      </header>
+      <PageHeader />
 
       {/* TODO [passo 12 do GUIA] passar frase, carregando e erro */}
       <FraseMotivacional />

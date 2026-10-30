@@ -1,5 +1,7 @@
 import TotalPorMateria from '../components/TotalPorMateria'
 import SessaoList from '../components/SessaoList'
+import PageHeader from '../components/PageHeader'
+
 
 function HistoricoPage() {
   // TODO [passo 11 do GUIA] ler matérias e sessões salvas no localStorage
@@ -8,10 +10,8 @@ function HistoricoPage() {
   return (
     <>
       {/* TODO [passo 2 do GUIA] trocar por <PageHeader /> */}
-      <header className="page-header">
-        <h1>Histórico</h1>
-        <p>Veja as sessões salvas e quanto você estudou de cada matéria.</p>
-      </header>
+      <PageHeader />
+
 
       {/* TODO [passo 3 do GUIA] passar materias e totais */}
       <TotalPorMateria />
