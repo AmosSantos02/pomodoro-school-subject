@@ -5,26 +5,34 @@ const CHAVE_SESSOES = 'cronometro:sessoes'
  * @returns {Array<{ id: string, nome: string }>} lista salva (ou [] se não houver nada / JSON inválido)
  */
 export function lerMaterias() {
-  // TODO [passo 6 do GUIA] ler CHAVE_MATERIAS do localStorage e converter com JSON.parse
+  const texto = localStorage.getItem(CHAVE_MATERIAS)
+  if (texto === null){
+    return[]
+  }
+  return JSON.parse(texto)
 }
 
 /**
  * @param {Array<{ id: string, nome: string }>} materias
  */
 export function salvarMaterias(materias) {
-  // TODO [passo 6 do GUIA] converter com JSON.stringify e gravar em CHAVE_MATERIAS
+  localStorage.setItem(CHAVE_MATERIAS, JSON.stringify(materias))
 }
 
 /**
  * @returns {Array<{ id: string, materiaId: string, data: string, duracaoSegundos: number }>}
  */
 export function lerSessoes() {
-  // TODO [passo 6 do GUIA] mesma ideia de lerMaterias, com CHAVE_SESSOES
+  const texto = localStorage.getItem(CHAVE_SESSOES)
+  if (texto === null){
+    return []
+  }
+  return JSON.parse(texto)
 }
 
 /**
  * @param {Array<{ id: string, materiaId: string, data: string, duracaoSegundos: number }>} sessoes
  */
 export function salvarSessoes(sessoes) {
-  // TODO [passo 6 do GUIA] mesma ideia de salvarMaterias, com CHAVE_SESSOES
+  localStorage.setItem(CHAVE_SESSOES, JSON.stringify(sessoes))
 }
