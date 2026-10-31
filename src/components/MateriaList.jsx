@@ -17,7 +17,7 @@ function MateriaList({ materias, onRemover }) {
       ) : (
         <ul className="materia-list">
           {materias.map(materia => (
-            <MateriaItem key={materia.id} materia={materia} />
+            <MateriaItem key={materia.id} materia={materia} onRemover={onRemover}/>
           ))}
         </ul>
       )}
