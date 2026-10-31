@@ -228,9 +228,14 @@ data/      → dados de exemplo (apagar no passo 14)
 2. `formatarData`: data ISO → texto pt-BR (`new Date(...)` + `toLocaleString('pt-BR')`).
 3. `calcularTotalPorMateria`: some `duracaoSegundos` por `materiaId` e devolva um objeto.
 4. `buscarNomeDaMateria`: procure com `find` e devolva o nome (ou um texto alternativo).
-5. `lerMaterias` / `lerSessoes`: leia a chave, trate `null`, faça `JSON.parse`.
-6. `salvarMaterias` / `salvarSessoes`: `JSON.stringify` e `setItem`.
-7. Teste cada função com `console.log` (use 0, 59, 60, 3599, 3600 e 3725 segundos).
+5. `lerMaterias` / `lerSessoes`: devolve a lista salva, ou `[]` se não houver nada.
+   - **Dica:** `localStorage.getItem(chave)` devolve o texto salvo, ou `null` se a chave ainda não existe. Trate o `null` primeiro; se houver texto, converta-o de volta em lista com `JSON.parse`.
+   - **Exemplo (outro tema):** ler uma lista de `'frutas'`. Se nunca foi salva, devolve lista vazia; se foi, devolve a lista que estava guardada.
+   - `lerSessoes` é a mesma ideia, com outra chave.
+6. `salvarMaterias` / `salvarSessoes`: grava a lista como texto.
+   - **Dica:** `localStorage.setItem(chave, texto)` só aceita **texto**. Converta a lista antes com `JSON.stringify`.
+   - **Exemplo (outro tema):** guardar a lista `['azul', 'verde']` na chave `'cores'`.
+7. **Testes:** as funções dos itens 1 a 4 você testa no terminal (Node). As dos itens 5 e 6 **não**: o Node não tem `localStorage`. Teste no navegador, no passo 7 (item 6 de lá).
 
 **Erro comum:** `JSON.parse(null)` sem tratar.
 **Leia:** https://developer.mozilla.org/pt-BR/docs/Web/API/Window/localStorage
@@ -249,13 +254,25 @@ data/      → dados de exemplo (apagar no passo 14)
 - Para ler o localStorage só na 1ª vez, passe uma **função** ao `useState`.
 
 **Faça**
-1. Implemente `gerarId` com `crypto.randomUUID()`.
-2. Em `MateriasPage`, importe `useState` e crie o state `materias`, começando com `lerMaterias()`.
-3. Crie a função `removerMateria(id)`: gera a lista nova com `filter`, chama `setMaterias` e `salvarMaterias`.
-4. Passe `materias` e `onRemover={removerMateria}` para `MateriaList`.
-5. Em `MateriaItem`, faça o botão chamar `onRemover` com o `id` da matéria (`onClick`).
-6. Para ter o que remover (o formulário vem no passo 8), grave matérias à mão no DevTools (Application → Local Storage) na chave usada no `storageService`.
-7. Remova uma matéria e dê F5.
+1. `gerarId` (em `utils/gerarId.js`): devolve um id único.
+   - **Dica:** pesquise `crypto.randomUUID`.
+2. State das matérias (em `MateriasPage`): a lista começa com o que estava salva.
+   - **Dica:** `useState(valorInicial)` guarda o valor e devolve `[valor, funçãoParaMudar]`. Se em vez do valor você passar uma **função**, o React a chama só na 1ª vez, o que serve para ler do localStorage uma única vez.
+   - **Exemplo (outro tema):** uma lista de `tarefas` que começa com as tarefas salvas.
+3. `removerMateria(id)` (em `MateriasPage`): tira uma matéria da lista e salva.
+   - **Dica:** `filter` devolve uma lista **nova** só com os itens que passam num teste. Para remover, o teste é "o id é diferente do que quero tirar". Depois, atualize o state e salve **a mesma lista nova**.
+   - **Exemplo (outro tema):** remover o produto de código `'a2'` de uma lista de produtos.
+4. Passe `materias` e `removerMateria` para a lista.
+   - **Dica:** os nomes das props estão no `@param` no topo do `MateriaList`. Função como prop vai **sem parênteses** (é a função, não o resultado dela).
+5. `MateriaList` repassa `onRemover` para cada item.
+   - **Dica:** cada `MateriaItem` precisa receber `onRemover`, do mesmo jeito que já recebe `materia`.
+6. `MateriaItem`: o botão avisa qual matéria remover.
+   - **Dica:** `onClick` precisa receber uma **função**, não o resultado de uma chamada. Para passar um argumento (o id), embrulhe a chamada numa função de seta.
+   - **Exemplo (outro tema):** botão "Apagar" de um produto que chama `apagar` com o código do produto.
+7. Para ter o que remover (o formulário só vem no passo 8), grave à mão no navegador.
+   - **Como:** F12 → **Application** → **Local Storage** → seu endereço. Crie a chave `cronometro:materias` com o valor `[{"id":"x1","nome":"Teste"}]` (aspas duplas, é JSON). Dê F5.
+   - Aqui também você **testa** `lerMaterias` e `salvarMaterias` do passo 6.
+8. Remova uma matéria na tela, dê F5 e confira que continua removida.
 
 **Erro comum:** alterar o array do state diretamente.
 **Leia:** https://react.dev/learn/updating-arrays-in-state
@@ -273,18 +290,25 @@ data/      → dados de exemplo (apagar no passo 14)
 - O formulário recarrega a página ao enviar. `event.preventDefault()` impede isso.
 
 **Faça**
-1. Em `MateriasPage`, crie os states `nome` (texto do campo) e `erro`.
-2. Em `MateriaForm`, ligue no input: `value={valor}` e `onChange={onChange}`. No `<form>`, ligue `onSubmit={onSubmit}`.
-3. Em `MateriasPage`, crie `handleChange` (atualiza `nome` com `evento.target.value`) e passe como `onChange`.
-4. Implemente `validarNomeMateria(nome, materias)`:
-   - vazio → mensagem de erro;
-   - menos de 2 letras (depois do `trim`) → mensagem;
-   - repetido (compare com `toLowerCase`, use `some`) → mensagem;
-   - ok → devolve `''`.
-5. Crie `handleSubmit(evento)`: `preventDefault`, valida e, se houver erro, faz `setErro` e para.
-6. Sem erro: crie `{ id: gerarId(), nome: nome.trim() }`, atualize `materias`, salve, limpe `nome` e `erro`.
-7. Passe `valor`, `erro`, `onChange`, `onSubmit` para `MateriaForm`.
-8. Teste: `""`, `"a"`, uma matéria repetida (com maiúsculas diferentes) e um nome válido.
+1. States do formulário (em `MateriasPage`): um para o texto do campo e outro para a mensagem de erro.
+   - **Dica:** os dois são texto e começam vazios.
+2. Ligue o formulário (em `MateriaForm`).
+   - **Dica:** input controlado = `value` vindo da prop + `onChange` avisando o pai a cada tecla. O `<form>` recebe o `onSubmit`.
+3. `handleChange(evento)` (em `MateriasPage`): guarda o que foi digitado.
+   - **Dica:** o texto digitado está em `evento.target.value`.
+4. `validarNomeMateria(nome, materias)` (em `utils/validacao.js`): devolve o texto do erro, ou `''` se estiver ok. **Ordem das checagens:**
+   1. nome vazio → mensagem.
+   2. menos de 2 letras → mensagem.
+   3. nome repetido → mensagem.
+   4. senão → `''`.
+   - **Dica:** use `trim()` antes de medir ou comparar (tira espaços das pontas). Para o repetido, `some` devolve `true` se **algum** item passar no teste; compare os dois nomes em minúsculas (`toLowerCase`) para "Mat" e "mat" contarem como iguais.
+5. `handleSubmit(evento)` (em `MateriasPage`): valida antes de salvar.
+   - **Dica:** primeiro `evento.preventDefault()`. Guarde o texto devolvido pela validação; se não for vazio, mostre-o no state de erro e saia da função (`return`).
+6. Ainda no `handleSubmit`, se não houve erro: adiciona a matéria.
+   - **Dica:** monte o objeto novo `{ id, nome }` (`gerarId` e o nome sem espaços nas pontas). Crie uma **cópia** da lista com ele no final, usando o spread (`...`), e nunca `push` no state. Atualize o state e o localStorage com a **mesma** lista nova. Por fim, limpe o campo e o erro.
+7. Passe as props para o `MateriaForm`.
+   - **Dica:** os nomes das props estão no `@param` no topo do `MateriaForm`.
+8. **Teste na tela:** `""`, `"a"`, uma matéria repetida (com maiúsculas diferentes) e um nome válido.
 
 **Erro comum:** esquecer o `preventDefault` (a página recarrega).
 **Leia:** https://react.dev/reference/react-dom/components/input
