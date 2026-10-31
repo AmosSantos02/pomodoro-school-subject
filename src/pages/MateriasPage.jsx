@@ -7,6 +7,12 @@ import { lerMaterias, salvarMaterias } from '../services/storageService'
 function MateriasPage() {
   const [materias,setMaterias] = useState(() => lerMaterias())
   // TODO [passo 8 do GUIA] criar o state do campo de texto e do erro; criar a função que valida e adiciona a matéria
+  const [nome,setNome] = useState('')
+  const [erro,setErro] = useState('')
+  
+  function handleChange(event){
+    setNome(event.target.value)
+  }
 
   function removerMateria(id){
     const newList = materias.filter(m => m.id !== id) // List without ID passed as parameter
@@ -19,7 +25,7 @@ function MateriasPage() {
       <PageHeader titulo='Matérias' descricao='Cadastre as matérias que você estuda.' />
 
       {/* TODO [passo 3 do GUIA] passar as props (valor, erro, onChange, onSubmit) para o formulário */}
-      <MateriaForm />
+      <MateriaForm valor={nome} erro={erro} onChange={handleChange} />
 
       <MateriaList materias={materias} onRemover={removerMateria} />
     </>

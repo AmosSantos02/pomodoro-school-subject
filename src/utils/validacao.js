@@ -7,5 +7,16 @@
  * @returns {string} mensagem de erro, ou '' quando o nome é válido
  */
 export function validarNomeMateria(nome, materias) {
-  // TODO [passo 8 do GUIA] aplicar as 3 regras na ordem; comparar nomes repetidos ignorando maiúsculas/minúsculas
+  const limpo = nome.trim()
+
+  if (limpo === '') {
+    return 'Informe o nome da matéria.'
+  }
+  if (limpo.length < 2) {
+    return 'O nome deve ter pelo menos 2 caracteres.'
+  }
+  if (materias.some(m => m.nome.toLowerCase() === limpo.toLowerCase())) {
+    return 'Essa matéria já está cadastrada.'
+  }
+  return ''
 }

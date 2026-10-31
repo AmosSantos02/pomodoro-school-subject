@@ -9,12 +9,10 @@
  */
 function MateriaForm({ valor, erro, onChange, onSubmit }) {
   return (
-    // TODO [passo 8 do GUIA] ligar onSubmit ao <form> (lembre de evitar o reload da página)
-    <form className="card materia-form" noValidate>
+    <form className="card materia-form" noValidate onSubmit={onSubmit}>
       <label htmlFor="nome-materia">Nome da matéria</label>
       <div className="form-row">
-        {/* TODO [passo 8 do GUIA] transformar em input controlado: value={valor} + onChange={onChange} */}
-        <input id="nome-materia" type="text" placeholder="Ex.: Matemática" autoComplete="off" />
+        <input id="nome-materia" value={valor} onChange={onChange} type="text" placeholder="Ex.: Matemática" autoComplete="off" />
         <button type="submit" className="btn btn--primary">
           Adicionar
         </button>
