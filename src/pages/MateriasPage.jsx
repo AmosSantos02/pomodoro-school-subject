@@ -3,15 +3,32 @@ import MateriaForm from '../components/MateriaForm'
 import MateriaList from '../components/MateriaList'
 import PageHeader from '../components/PageHeader'
 import { lerMaterias, salvarMaterias } from '../services/storageService'
+import { gerarId } from '../utils/gerarId'
+import { validarNomeMateria } from '../utils/validacao'
 
 function MateriasPage() {
   const [materias,setMaterias] = useState(() => lerMaterias())
-  // TODO [passo 8 do GUIA] criar o state do campo de texto e do erro; criar a função que valida e adiciona a matéria
   const [nome,setNome] = useState('')
   const [erro,setErro] = useState('')
   
   function handleChange(event){
     setNome(event.target.value)
+  }
+
+  function handleSubmit(event){
+    event.preventDefault()
+    const mensagem = validarNomeMateria(nome, materias)
+    if (mensagem !== '') {
+      setErro(mensagem)
+      return
+    }
+
+    const nova = { id: gerarId(), nome: nome.trim() }
+    const newList = [...materias, nova]
+    setMaterias(newList)
+    salvarMaterias(newList)
+    setNome('')
+    setErro('')
   }
 
   function removerMateria(id){
@@ -24,8 +41,7 @@ function MateriasPage() {
     <>
       <PageHeader titulo='Matérias' descricao='Cadastre as matérias que você estuda.' />
 
-      {/* TODO [passo 3 do GUIA] passar as props (valor, erro, onChange, onSubmit) para o formulário */}
-      <MateriaForm valor={nome} erro={erro} onChange={handleChange} />
+      <MateriaForm valor={nome} erro={erro} onChange={handleChange} onSubmit={handleSubmit} />
 
       <MateriaList materias={materias} onRemover={removerMateria} />
     </>
