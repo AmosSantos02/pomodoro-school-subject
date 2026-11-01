@@ -10,7 +10,6 @@ function Layout() {
         <Outlet />
       </main>
       <footer className="footer">
-        {/* TODO [passo 1 do GUIA] trocar o ano fixo por uma expressão JavaScript dentro das chaves {} */}
         <small>Cronômetro de Estudos · {new Date().getFullYear() }</small>
       </footer>
     </>
