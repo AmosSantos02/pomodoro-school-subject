@@ -3,7 +3,8 @@ import Cronometro from '../components/Cronometro'
 import FraseMotivacional from '../components/FraseMotivacional'
 import PageHeader from '../components/PageHeader'
 import { useEffect, useState } from 'react'
-import { lerMaterias } from '../services/storageService.js'
+import { gerarId } from '../utils/gerarId.js'
+import { lerMaterias, lerSessoes, salvarSessoes } from '../services/storageService.js'
 
 function EstudarPage() {
   const materias = lerMaterias()
@@ -35,9 +36,16 @@ function EstudarPage() {
   }
 
   function finalizar(){
-
+    if(segundos === 0 || !materiaId){
+      return
+    }
+    setRodando(false)
+    const sessao = { id: gerarId(), materiaId, data: new Date().toISOString(), duracaoSegundos: segundos }
+    const antiga = lerSessoes()
+    const nova = [...antiga, sessao]
+    salvarSessoes(nova)
+    setSegundos(0)
   }
-  // TODO [passo 10 do GUIA] criar a função de finalizar: montar a Sessao, salvar no localStorage e zerar o cronômetro
   // TODO [passo 12 do GUIA] criar os states da frase (texto, carregando, erro) e o useEffect que chama buscarConselho()
 
   return (
