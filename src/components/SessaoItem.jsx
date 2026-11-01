@@ -1,3 +1,5 @@
+import { formatarData, formatarSegundos } from "../utils/formatarTempo"
+
 /**
  * Uma linha da tabela de histórico.
  *
@@ -8,10 +10,9 @@
 function SessaoItem({ sessao, nomeMateria }) {
   return (
     <tr>
-      {/* TODO [passo 11 do GUIA] data com formatarData(sessao.data), matéria com nomeMateria, duração com formatarSegundos(sessao.duracaoSegundos) */}
-      <td>{sessao.data}</td>
+      <td>{formatarData(sessao.data)}</td>
       <td>{nomeMateria}</td>
-      <td className="numero">{sessao.duracaoSegundos}</td>
+      <td className="numero">{formatarSegundos(sessao.duracaoSegundos)}</td>
     </tr>
   )
 }

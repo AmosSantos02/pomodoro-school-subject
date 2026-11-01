@@ -1,5 +1,6 @@
 import SessaoItem from './SessaoItem'
 import EstadoVazio from './EstadoVazio'
+import { buscarNomeDaMateria } from '../utils/sessoes'
 
 /**
  * Tabela com as sessões salvas.
@@ -25,9 +26,8 @@ function SessaoList({ sessoes, materias }) {
               </tr>
             </thead>
             <tbody>
-              {/* TODO [passo 11 do GUIA] trocar os 3 itens fixos por um map() sobre sessoes, com key; passe o nomeMateria usando buscarNomeDaMateria() */}
               {sessoes.map(sessao => (
-                <SessaoItem key={sessao.id} sessao={sessao} nomeMateria='Matemática' />
+                <SessaoItem key={sessao.id} sessao={sessao} nomeMateria={buscarNomeDaMateria(materias,sessao.materiaId)} />
               ))}
             </tbody>
           </table>
