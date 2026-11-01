@@ -11,6 +11,7 @@ function EstudarPage() {
   const [materiaId, setMateriaId] = useState('')
   const [segundos, setSegundos] = useState(0)
   const [rodando, setRodando] = useState(false)
+  const [mensagem, setMensagem] = useState('')
 
   useEffect(() => {
     if(rodando){
@@ -23,11 +24,15 @@ function EstudarPage() {
 
   function handleMateria(event){
     setMateriaId(event.target.value)
+    setMensagem('')
   }
 
   function iniciar(){
     if(materiaId){
+      setMensagem('')
       setRodando(true)
+    } else {
+      setMensagem('Selecione uma matéria antes!')
     }
   }
 
@@ -45,6 +50,7 @@ function EstudarPage() {
     const nova = [...antiga, sessao]
     salvarSessoes(nova)
     setSegundos(0)
+    setMensagem('Sessão salva!')
   }
   // TODO [passo 12 do GUIA] criar os states da frase (texto, carregando, erro) e o useEffect que chama buscarConselho()
 
@@ -59,6 +65,10 @@ function EstudarPage() {
         <SeletorMateria materias={materias} valor={materiaId} onChange={handleMateria} desabilitado={rodando}/>
 
         <Cronometro segundos={segundos} rodando={rodando} onIniciar={iniciar} onPausar={pausar} podeFinalizar={segundos > 0} onFinalizar={finalizar}/>
+
+        {mensagem && (
+          <p style={{ textAlign: 'center' }}>{mensagem}</p>
+        )}
       </section>
     </>
   )
