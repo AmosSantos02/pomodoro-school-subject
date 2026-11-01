@@ -10,6 +10,8 @@ import { buscarNomeDaMateria } from '../utils/sessoes'
  * @param {Array<{ id: string, nome: string }>} materias - usadas para descobrir o nome de cada matéria
  */
 function SessaoList({ sessoes, materias }) {
+  const ordenadas = [...sessoes]
+  ordenadas.sort((a, b) => b.data.localeCompare(a.data))
   return (
     <section className="card">
       <h2 className="card__title">Sessões</h2>
@@ -26,7 +28,7 @@ function SessaoList({ sessoes, materias }) {
               </tr>
             </thead>
             <tbody>
-              {sessoes.map(sessao => (
+              {ordenadas.map(sessao => (
                 <SessaoItem key={sessao.id} sessao={sessao} nomeMateria={buscarNomeDaMateria(materias,sessao.materiaId)} />
               ))}
             </tbody>
