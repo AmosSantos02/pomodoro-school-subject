@@ -2,28 +2,73 @@ import SeletorMateria from '../components/SeletorMateria'
 import Cronometro from '../components/Cronometro'
 import FraseMotivacional from '../components/FraseMotivacional'
 import PageHeader from '../components/PageHeader'
-import { MATERIAS_EXEMPLO } from '../data/dadosExemplo'
+import { useEffect, useState } from 'react'
+import { gerarId } from '../utils/gerarId.js'
+import { lerMaterias, lerSessoes, salvarSessoes } from '../services/storageService.js'
 
 function EstudarPage() {
-  // TODO [passo 9 do GUIA] criar os states: matéria escolhida, segundos decorridos e se está rodando
-  // TODO [passo 9 do GUIA] criar o useEffect que conta o tempo enquanto estiver rodando (e limpa o intervalo)
-  // TODO [passo 10 do GUIA] criar a função de finalizar: montar a Sessao, salvar no localStorage e zerar o cronômetro
+  const materias = lerMaterias()
+  const [materiaId, setMateriaId] = useState('')
+  const [segundos, setSegundos] = useState(0)
+  const [rodando, setRodando] = useState(false)
+  const [mensagem, setMensagem] = useState('')
+
+  useEffect(() => {
+    if(rodando){
+      const id = setInterval(() => {
+        setSegundos(s => s + 1)
+      }, 1000)
+      return () => clearInterval(id)
+    }
+  }, [rodando])
+
+  function handleMateria(event){
+    setMateriaId(event.target.value)
+    setMensagem('')
+  }
+
+  function iniciar(){
+    if(materiaId){
+      setMensagem('')
+      setRodando(true)
+    } else {
+      setMensagem('Selecione uma matéria antes!')
+    }
+  }
+
+  function pausar(){
+    setRodando(false)
+  }
+
+  function finalizar(){
+    if(segundos === 0 || !materiaId){
+      return
+    }
+    setRodando(false)
+    const sessao = { id: gerarId(), materiaId, data: new Date().toISOString(), duracaoSegundos: segundos }
+    const antiga = lerSessoes()
+    const nova = [...antiga, sessao]
+    salvarSessoes(nova)
+    setSegundos(0)
+    setMensagem('Sessão salva!')
+  }
   // TODO [passo 12 do GUIA] criar os states da frase (texto, carregando, erro) e o useEffect que chama buscarConselho()
 
   return (
     <>
-      {/* TODO [passo 2 do GUIA] trocar por <PageHeader /> */}
       <PageHeader titulo='Estudar' descricao='Escolha uma matéria e inicie o cronômetro' />
 
       {/* TODO [passo 12 do GUIA] passar frase, carregando e erro */}
       <FraseMotivacional />
 
       <section className="card estudar">
-        {/* TODO [passo 3 do GUIA] passar materias, valor, onChange e desabilitado */}
-        <SeletorMateria materias={MATERIAS_EXEMPLO} />
+        <SeletorMateria materias={materias} valor={materiaId} onChange={handleMateria} desabilitado={rodando}/>
 
-        {/* TODO [passo 3 do GUIA] passar segundos, rodando, podeFinalizar e os três handlers */}
-        <Cronometro />
+        <Cronometro segundos={segundos} rodando={rodando} onIniciar={iniciar} onPausar={pausar} podeFinalizar={segundos > 0} onFinalizar={finalizar}/>
+
+        {mensagem && (
+          <p style={{ textAlign: 'center' }}>{mensagem}</p>
+        )}
       </section>
     </>
   )

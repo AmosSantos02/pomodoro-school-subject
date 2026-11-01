@@ -1,3 +1,4 @@
+import { formatarSegundos } from "../utils/formatarTempo"
 /**
  * Display do tempo e botões de controle.
  *
@@ -12,22 +13,20 @@
 function Cronometro({ segundos, rodando, podeFinalizar, onIniciar, onPausar, onFinalizar }) {
   return (
     <div className="cronometro">
-      {/* TODO [passo 9 do GUIA] exibir o tempo vindo de segundos, formatado com formatarSegundos() */}
       <div className="cronometro__display" role="timer" aria-live="off">
-        00:12:34
+        {formatarSegundos(segundos)}
       </div>
       <div className="cronometro__acoes">
-        {/* TODO [passo 9 do GUIA] ligar os onClick e desabilitar o que não faz sentido (disabled) */}
         {rodando ? (
-          <button type="button" className="btn btn--secondary">
+          <button type="button" className="btn btn--secondary" onClick={onPausar}>
             Pausar
           </button>
         ) : (
-          <button type="button" className="btn btn--primary">
+          <button type="button" className="btn btn--primary" onClick={onIniciar}>
             Iniciar
           </button>
         )}
-        <button type="button" className="btn btn--ghost-danger" disabled={!podeFinalizar}>
+        <button type="button" className="btn btn--ghost-danger" onClick={onFinalizar} disabled={!podeFinalizar}>
           Finalizar
         </button>
       </div>
