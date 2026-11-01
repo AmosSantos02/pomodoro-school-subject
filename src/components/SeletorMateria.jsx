@@ -11,8 +11,7 @@ function SeletorMateria({ materias, valor, onChange, desabilitado }) {
   return (
     <div className="field">
       <label htmlFor="select-materia">Matéria</label>
-      {/* TODO [passo 9 do GUIA] controlar o select: value={valor}, onChange={onChange}, disabled={desabilitado} */}
-      <select id="select-materia" defaultValue="">
+      <select id="select-materia" value={valor} onChange={onChange} disabled={desabilitado}>
         <option value="" disabled>
           Escolha uma matéria
         </option>
