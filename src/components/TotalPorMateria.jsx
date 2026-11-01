@@ -1,3 +1,5 @@
+import { formatarSegundos } from "../utils/formatarTempo"
+
 /**
  * Cartão com o total estudado por matéria.
  *
@@ -13,6 +15,7 @@ function TotalPorMateria({ materias, totais }) {
         {materias.map((materia) => (
           <li key={materia.id} className="totais__item">
             <span>{materia.nome}</span>
+            <strong>{formatarSegundos(totais[materia.id] ?? 0)}</strong>
           </li>
         ))}
       </ul>
