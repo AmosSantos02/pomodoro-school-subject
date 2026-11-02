@@ -37,7 +37,7 @@ function EstudarPage() {
       try{
         const conselho = await buscarConselho();
         setFrase(conselho)
-      } catch (e) {
+      } catch {
           setErro('Não foi possível carregar o conselho')
       } finally{
         setCarregando(false)
