@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
 function Navbar() {
-  // TODO [passo 13 do GUIA] o NavLink já recebe a classe "active" sozinho; confira no CSS (.navbar__links a.active) e teste a navegação
     const nomeApp = 'Cronômetro de Estudos';
   return (
     <header className="navbar">

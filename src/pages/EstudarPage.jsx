@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react'
 import { gerarId } from '../utils/gerarId.js'
 import { lerMaterias, lerSessoes, salvarSessoes } from '../services/storageService.js'
 import { buscarConselho } from '../services/adviceService.js'
+import { useNavigate } from 'react-router-dom'
 
 
 
 function EstudarPage() {
   const materias = lerMaterias()
+  const navigate = useNavigate()
   
   const [materiaId, setMateriaId] = useState('')
   const [segundos, setSegundos] = useState(0)
@@ -73,6 +75,7 @@ function EstudarPage() {
     salvarSessoes(nova)
     setSegundos(0)
     setMensagem('Sessão salva!')
+    navigate('/historico')
   }
 
   return (

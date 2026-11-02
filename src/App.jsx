@@ -3,6 +3,8 @@ import Layout from './components/Layout'
 import MateriasPage from './pages/MateriasPage'
 import EstudarPage from './pages/EstudarPage'
 import HistoricoPage from './pages/HistoricoPage'
+import NotFoundPage from './pages/NotFoundPage'
+
 
 function App() {
   return (
@@ -13,7 +15,7 @@ function App() {
         <Route path="/materias" element={<MateriasPage />} />
         <Route path="/estudar" element={<EstudarPage />} />
         <Route path="/historico" element={<HistoricoPage />} />
-        {/* TODO [passo 13 do GUIA] criar pages/NotFoundPage.jsx e registrar aqui a rota path="*" */}
+        <Route path='*' element={<NotFoundPage />}/>
       </Route>
     </Routes>
   )
