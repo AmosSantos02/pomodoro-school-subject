@@ -11,8 +11,13 @@ function FraseMotivacional({ frase, carregando, erro }) {
   return (
     <figure className="frase">
       <figcaption className="frase__rotulo">Frase do dia</figcaption>
-      {/* TODO [passo 12 do GUIA] exibir a prop frase quando carregou; "Carregando..." enquanto carregando; mensagem de erro quando erro */}
-      <blockquote className="frase__texto">Don’t be afraid to take small steps.</blockquote>
+      {carregando ? (
+        <blockquote className="frase--carregando">Carregando...</blockquote>
+      ) : erro ? (
+        <blockquote className="frase--erro">{erro}</blockquote>
+      ) : (
+        <blockquote className="frase__texto">{frase}</blockquote>
+      )}
     </figure>
   )
 }

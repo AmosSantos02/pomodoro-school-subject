@@ -5,13 +5,21 @@ import PageHeader from '../components/PageHeader'
 import { useEffect, useState } from 'react'
 import { gerarId } from '../utils/gerarId.js'
 import { lerMaterias, lerSessoes, salvarSessoes } from '../services/storageService.js'
+import { buscarConselho } from '../services/adviceService.js'
+
+
 
 function EstudarPage() {
   const materias = lerMaterias()
+  
   const [materiaId, setMateriaId] = useState('')
   const [segundos, setSegundos] = useState(0)
   const [rodando, setRodando] = useState(false)
   const [mensagem, setMensagem] = useState('')
+  const [frase, setFrase] = useState('')
+  const [carregando, setCarregando] = useState(true)
+  const [erro, setErro] = useState('')
+  
 
   useEffect(() => {
     if(rodando){
@@ -21,6 +29,20 @@ function EstudarPage() {
       return () => clearInterval(id)
     }
   }, [rodando])
+
+  useEffect(( ) => {
+    async function carregar() {
+      try{
+        const conselho = await buscarConselho();
+        setFrase(conselho)
+      } catch (e) {
+          setErro('Não foi possível carregar o conselho')
+      } finally{
+        setCarregando(false)
+      }
+    }
+    carregar()
+  }, [])
 
   function handleMateria(event){
     setMateriaId(event.target.value)
@@ -52,14 +74,12 @@ function EstudarPage() {
     setSegundos(0)
     setMensagem('Sessão salva!')
   }
-  // TODO [passo 12 do GUIA] criar os states da frase (texto, carregando, erro) e o useEffect que chama buscarConselho()
 
   return (
     <>
       <PageHeader titulo='Estudar' descricao='Escolha uma matéria e inicie o cronômetro' />
 
-      {/* TODO [passo 12 do GUIA] passar frase, carregando e erro */}
-      <FraseMotivacional />
+      <FraseMotivacional frase={frase} carregando={carregando} erro={erro} />
 
       <section className="card estudar">
         <SeletorMateria materias={materias} valor={materiaId} onChange={handleMateria} desabilitado={rodando}/>
