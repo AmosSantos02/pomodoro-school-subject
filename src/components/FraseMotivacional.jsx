@@ -7,7 +7,6 @@
  * @param {string} erro - mensagem de erro ('' quando deu certo)
  */
 function FraseMotivacional({ frase, carregando, erro }) {
-  // O CSS já tem as variações .frase--carregando e .frase--erro. Use-as no passo 12.
   return (
     <figure className="frase">
       <figcaption className="frase__rotulo">Frase do dia</figcaption>
